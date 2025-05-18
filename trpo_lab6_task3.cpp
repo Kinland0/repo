@@ -71,3 +71,18 @@ class March8FlowerArrangement : public Cake {
 public:
     void describe() const override { cout << "Букет цветов к 8 Марта\n"; }
 };
+
+
+
+
+// Абстрактная фабрика
+class AbstractFactory {
+public:
+    virtual PostCard* createPostCard() const = 0;
+    virtual Present* createPresent() const = 0;
+    virtual Cake* createCake() const = 0;
+    virtual ~AbstractFactory() = default;
+};
+
+
+
