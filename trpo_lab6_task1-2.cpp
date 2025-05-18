@@ -175,3 +175,10 @@ void test_fold() {
     delete newExpr;
     delete callAbs;
 }
+
+
+int main() {
+    test_copy();
+    test_fold();
+    return 0;
+}
