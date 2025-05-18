@@ -111,3 +111,20 @@ public:
 
 
 
+// Клиентский код
+void createHolidaySet(const AbstractFactory& factory) {
+    PostCard* card = factory.createPostCard();
+    Present* present = factory.createPresent();
+    Cake* cake = factory.createCake();
+
+    card->display();
+    present->show();
+    cake->describe();
+
+    delete card;
+    delete present;
+    delete cake;
+}
+
+
+
