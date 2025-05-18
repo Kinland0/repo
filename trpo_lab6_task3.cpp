@@ -24,3 +24,50 @@ public:
 
 
 
+// Конкретные продукты для Нового Года
+class NYCard : public PostCard {
+public:
+    void display() const override { cout << "Новогодняя открытка\n"; }
+};
+
+class NYPresent : public Present {
+public:
+    void show() const override { cout << "Новогодний подарок\n"; }
+};
+
+class NYCake : public Cake {
+public:
+    void describe() const override { cout << "Новогодний торт\n"; }
+};
+
+// Конкретные продукты для Дня Рождения
+class BDCard : public PostCard {
+public:
+    void display() const override { cout << "Открытка на ДР\n"; }
+};
+
+class BDPresent : public Present {
+public:
+    void show() const override { cout << "Подарок на ДР\n"; }
+};
+
+class BDCake : public Cake {
+public:
+    void describe() const override { cout << "Торт на ДР\n"; }
+};
+
+// Конкретные продукты для 8 Марта 
+class March8Card : public PostCard {
+public:
+    void display() const override { cout << "Открытка к 8 Марта\n"; }
+};
+
+class March8Present : public Present {
+public:
+    void show() const override { cout << "Подарок на 8 Марта\n"; }
+};
+
+class March8FlowerArrangement : public Cake { 
+public:
+    void describe() const override { cout << "Букет цветов к 8 Марта\n"; }
+};
