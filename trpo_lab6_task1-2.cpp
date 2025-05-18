@@ -140,3 +140,38 @@ struct FoldConstants : Transformer {
         return new FunctionCall(fcall->name(), new_arg);
     }
 };
+
+
+void test_copy() {
+    Number* n32 = new Number(32.0);
+    Number* n16 = new Number(16.0);
+    BinaryOperation* minus = new BinaryOperation(n32, BinaryOperation::MINUS, n16);
+    FunctionCall* callSqrt = new FunctionCall("sqrt", minus);
+    Variable* var = new Variable("var");
+    BinaryOperation* mult = new BinaryOperation(var, BinaryOperation::MUL, callSqrt);
+    FunctionCall* callAbs = new FunctionCall("abs", mult);
+
+    CopySyntaxTree CST;
+    Expression* newExpr = callAbs->transform(&CST);
+
+    delete callAbs;
+    cout << "Copy result: " << newExpr->evaluate() << endl;
+    delete newExpr;
+}
+
+void test_fold() {
+    Number* n32 = new Number(32.0);
+    Number* n16 = new Number(16.0);
+    BinaryOperation* minus = new BinaryOperation(n32, BinaryOperation::MINUS, n16);
+    FunctionCall* callSqrt = new FunctionCall("sqrt", minus);
+    Variable* var = new Variable("var");
+    BinaryOperation* mult = new BinaryOperation(var, BinaryOperation::MUL, callSqrt);
+    FunctionCall* callAbs = new FunctionCall("abs", mult);
+
+    FoldConstants FC;
+    Expression* newExpr = callAbs->transform(&FC);
+
+    cout << "Folded result: " << newExpr->evaluate() << endl;
+    delete newExpr;
+    delete callAbs;
+}
