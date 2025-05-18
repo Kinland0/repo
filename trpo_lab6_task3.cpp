@@ -86,3 +86,28 @@ public:
 
 
 
+// Конкретные фабрики
+class NYFactory : public AbstractFactory {
+public:
+    PostCard* createPostCard() const override { return new NYCard(); }
+    Present* createPresent() const override { return new NYPresent(); }
+    Cake* createCake() const override { return new NYCake(); }
+};
+
+class BDFactory : public AbstractFactory {
+public:
+    PostCard* createPostCard() const override { return new BDCard(); }
+    Present* createPresent() const override { return new BDPresent(); }
+    Cake* createCake() const override { return new BDCake(); }
+};
+
+class March8Factory : public AbstractFactory {
+public:
+    PostCard* createPostCard() const override { return new March8Card(); }
+    Present* createPresent() const override { return new March8Present(); }
+    Cake* createCake() const override { return new March8FlowerArrangement(); }
+};
+
+
+
+
