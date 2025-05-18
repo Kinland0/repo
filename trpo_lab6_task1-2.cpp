@@ -91,3 +91,19 @@ private:
     string const name_;
     Expression const* arg_;
 };
+
+
+struct CopySyntaxTree : Transformer {
+    Expression* transformNumber(Number const* number) override { return new Number(number->value()); }
+    Expression* transformBinaryOperation(BinaryOperation const* binop) override {
+        return new BinaryOperation(
+            binop->left()->transform(this),
+            binop->operation(),
+            binop->right()->transform(this)
+        );
+    }
+    Expression* transformFunctionCall(FunctionCall const* fcall) override {
+        return new FunctionCall(fcall->name(), fcall->arg()->transform(this));
+    }
+    Expression* transformVariable(Variable const* var) override { return new Variable(var->name()); }
+};
