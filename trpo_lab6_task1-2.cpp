@@ -107,3 +107,36 @@ struct CopySyntaxTree : Transformer {
     }
     Expression* transformVariable(Variable const* var) override { return new Variable(var->name()); }
 };
+
+struct FoldConstants : Transformer {
+    Expression* transformNumber(Number const* number) override { return new Number(number->value()); }
+    Expression* transformVariable(Variable const* var) override { return new Variable(var->name()); }
+
+    Expression* transformBinaryOperation(BinaryOperation const* binop) override {
+        Expression* new_left = binop->left()->transform(this);
+        Expression* new_right = binop->right()->transform(this);
+
+        Number* left_num = dynamic_cast<Number*>(new_left);
+        Number* right_num = dynamic_cast<Number*>(new_right);
+
+        if (left_num && right_num) {
+            double result = BinaryOperation(left_num, binop->operation(), right_num).evaluate();
+            delete new_left;
+            delete new_right;
+            return new Number(result);
+        }
+        return new BinaryOperation(new_left, binop->operation(), new_right);
+    }
+
+    Expression* transformFunctionCall(FunctionCall const* fcall) override {
+        Expression* new_arg = fcall->arg()->transform(this);
+        Number* arg_num = dynamic_cast<Number*>(new_arg);
+
+        if (arg_num) {
+            double result = FunctionCall(fcall->name(), arg_num).evaluate();
+            delete new_arg;
+            return new Number(result);
+        }
+        return new FunctionCall(fcall->name(), new_arg);
+    }
+};
