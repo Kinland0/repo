@@ -128,3 +128,19 @@ void createHolidaySet(const AbstractFactory& factory) {
 
 
 
+int main() {
+    cout << "Новогодний набор:\n";
+    NYFactory nyFactory;
+    createHolidaySet(nyFactory);
+
+    cout << "\nНабор на ДР:\n";
+    BDFactory bdFactory;
+    createHolidaySet(bdFactory);
+
+    cout << "\nНабор к 8 Марта:\n";
+    March8Factory march8Factory;
+    createHolidaySet(march8Factory);
+
+    return 0;
+}
+
